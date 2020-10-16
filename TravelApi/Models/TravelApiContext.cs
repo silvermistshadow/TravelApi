@@ -23,7 +23,15 @@ namespace TravelApi.Models
                 new Country { CountryId = 4, Name = "Australia" },
                 new Country { CountryId = 5, Name = "UK" }
             );
-            
+            builder.Entity<City>()
+                .HasData(
+                new City { CityId = 1, Name = "Vancouver", CountryId = 1 },
+                new City { CityId = 2, Name = "London", CountryId = 5 },
+                new City { CityId = 3, Name = "Tokyo", CountryId = 2 },
+                new City { CityId = 4, Name = "Sydney", CountryId = 4 },
+                new City { CityId = 5, Name = "Paris", CountryId = 3 },
+                new City { CityId = 6, Name = "Montreal", CountryId = 1 }
+            );
         }
     }
 }
