@@ -64,5 +64,25 @@ namespace TravelApi.Controllers
                 Console.WriteLine("User name is required for editing");
             }
         }
+        [HttpDelete("{id}")]
+        public void Delete(int id, [FromBody] Review review, string userName)
+        {   var reviewToDelete = _db.Reviews.FirstOrDefault(entry => entry.ReviewId == id);
+            if (userName != null)
+            {
+                if (review.UserName == userName)
+                {
+                    _db.Reviews.Remove(reviewToDelete);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("User name doesn't match");
+                }
+            }
+            else 
+            {
+                Console.WriteLine("User name is required to delete reviews");
+            }
+        }
     }
 }

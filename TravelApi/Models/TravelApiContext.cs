@@ -32,6 +32,12 @@ namespace TravelApi.Models
                 new City { CityId = 5, Name = "Paris", CountryId = 3 },
                 new City { CityId = 6, Name = "Montreal", CountryId = 1 }
             );
+            builder.Entity<Review>()
+                .HasData(
+                new Review { ReviewId = 1, ReviewScore = 10, ReviewText = "Wonderful city, a lot to do and see!", CityId = 3, UserName = "Kurokeh"},
+                new Review { ReviewId = 2, ReviewScore = 5, ReviewText = "Okay but it smelled like weed everywhere", CityId = 1, UserName = "Bmead"},
+                new Review { ReviewId = 3, ReviewScore = 7, ReviewText = "Lovely city, some of the people weren't nice though", CityId = 5, UserName = "Bmead"}
+            );
         }
     }
 }
