@@ -18,18 +18,9 @@ namespace TravelApi.Controllers
             _db = db;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<Review>> Get(string city, string country)
+        public ActionResult<IEnumerable<Review>> Get()
         {
             var query = _db.Reviews.AsQueryable();
-            if (city != null)
-            {
-                query = query.Where(entry => entry.City.Name == city);   
-            }
-
-            if (country != null)
-            {
-                query = query.Where(entry => entry.City.Country.Name == country);
-            }
             return query.ToList();
         }
         [HttpPost]

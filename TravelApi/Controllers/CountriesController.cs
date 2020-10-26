@@ -20,17 +20,17 @@ namespace TravelApi.Controllers
         public ActionResult<IEnumerable<Country>> Get(string name)
         {
             var query = _db.Countries
+                .AsQueryable()
                 .Include(country => country.Cities)
-                    .ThenInclude(city => city.Reviews)
-                .AsQueryable();
+                    .ThenInclude(city => city.Reviews);
                 
             if (name != null)
             {
-                query = query
-                    .Include(country => country.Cities)
-                    .Where(country.CountryId == City.CountryId))
-                        .ThenInclude(city => city.Reviews)
-                    .AsQueryable();
+                // query = query
+                //     .Include(country => country.Cities)
+                //     .Where(country.CountryId == City.CountryId))
+                //         .ThenInclude(city => city.Reviews)
+                //     .AsQueryable();
             }
             return query.ToList();
         }
