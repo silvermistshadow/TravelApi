@@ -19,10 +19,13 @@ namespace TravelApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<City>> Get(string name)
         {
-            var query = _db.Cities.AsQueryable();
+            var query = _db.Cities.AsQueryable()
+                .Include(city => city.Reviews);
+
             if (name != null)
             {
-                query = query.Where(entry => entry.Name == name);
+                query = query.Where(city => city.Name == name)
+                    .Include(city => city.Reviews);
             }
             return query.ToList();
         }
@@ -52,6 +55,12 @@ namespace TravelApi.Controllers
             var cityToDelete = _db.Cities.FirstOrDefault(entry => entry.CityId == id);
             _db.Cities.Remove(cityToDelete);
             _db.SaveChanges();
+        }
+
+        [HttpGet("brew")]
+        public ActionResult Brew()
+        {
+            return StatusCode(418);
         }
     }
 }

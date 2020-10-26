@@ -19,10 +19,18 @@ namespace TravelApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Country>> Get(string name)
         {
-            var query = _db.Countries.AsQueryable();
+            var query = _db.Countries
+                .Include(country => country.Cities)
+                    .ThenInclude(city => city.Reviews)
+                .AsQueryable();
+                
             if (name != null)
             {
-                query = query.Where(entry => entry.Name == name);
+                query = query
+                    .Include(country => country.Cities)
+                    .Where(country.CountryId == City.CountryId))
+                        .ThenInclude(city => city.Reviews)
+                    .AsQueryable();
             }
             return query.ToList();
         }
